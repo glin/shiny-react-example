@@ -1,0 +1,4 @@
+node_modules/
+dist/
+.Rproj.user/
+.Rhistory

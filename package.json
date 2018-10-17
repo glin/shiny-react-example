@@ -1,0 +1,34 @@
+{
+  "name": "shiny-react-example",
+  "version": "0.1.0",
+  "description": "Example of a Shiny app with a React front-end",
+  "scripts": {
+    "start": "Rscript main.R",
+    "build": "webpack --mode production",
+    "dev": "webpack-dev-server --mode development"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@babel/core": "^7.1.2",
+    "@babel/preset-env": "^7.1.0",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.4",
+    "bootstrap": "^4.1.3",
+    "css-loader": "^1.0.0",
+    "prop-types": "^15.6.2",
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2",
+    "react-hot-loader": "^4.3.11",
+    "reactstrap": "^6.5.0",
+    "recharts": "^1.3.4",
+    "style-loader": "^0.23.1",
+    "webpack": "^4.20.2",
+    "webpack-cli": "^3.1.2"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.6.1",
+    "eslint-plugin-react": "^7.11.1",
+    "webpack-dev-server": "^3.1.9"
+  }
+}

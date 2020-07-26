@@ -33,6 +33,10 @@ module.exports = {
       '/websocket': {
         target: 'ws://localhost:3000',
         ws: true
+      },
+      '/autoreload': {
+        target: 'ws://localhost:3000',
+        ws: true
       }
     }
   }

@@ -1,5 +1,3 @@
-const webpack = require('webpack')
-
 module.exports = {
   output: {
     // Serve the bundle from /static
@@ -19,8 +17,6 @@ module.exports = {
       }
     ]
   },
-
-  plugins: [new webpack.HotModuleReplacementPlugin()],
 
   devServer: {
     hot: true,

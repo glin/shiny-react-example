@@ -19,12 +19,14 @@ server <- function(input, output, session) {
 }
 
 ui <- function() {
-  htmlTemplate("public/index.html")
+  htmlTemplate("dist/index.html")
 }
 
-# Serve the bundle at static/main.js
-if (dir.exists("dist")) {
-  addResourcePath("static", "dist")
+# Serve the JS and CSS assets under /assets
+if (!dir.exists("dist/assets")) {
+  stop("Missing static assets directory at dist/assets")
 }
+
+addResourcePath("assets", "dist/assets")
 
 shinyApp(ui, server)

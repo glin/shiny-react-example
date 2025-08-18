@@ -1,17 +1,20 @@
-import React, { Component } from 'react'
-import { hot } from 'react-hot-loader'
-import { Container, Row, Col, Card, CardBody } from 'reactstrap'
+import { Component } from 'react'
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
+import Card from 'react-bootstrap/Card'
+import CardBody from 'react-bootstrap/CardBody'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
-import BinsInput from './BinsInput'
-import Histogram from './Histogram'
+import BinsInput from './BinsInput.jsx'
+import Histogram from './Histogram.jsx'
 
 class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
       bins: 30,
-      histogramData: null
+      histogramData: null,
     }
     this.handleBinsChange = this.handleBinsChange.bind(this)
   }
@@ -21,7 +24,7 @@ class App extends Component {
       this.setInputValues()
     })
 
-    window.Shiny.addCustomMessageHandler('histogramData', histogramData =>
+    window.Shiny.addCustomMessageHandler('histogramData', (histogramData) =>
       this.setState({ histogramData })
     )
   }
@@ -66,4 +69,4 @@ class App extends Component {
   }
 }
 
-export default hot(module)(App)
+export default App

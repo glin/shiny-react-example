@@ -13,19 +13,33 @@ npm install
 ```
 
 ### Development
-1. Run the Shiny app in development mode (with live reloading enabled)
-```sh
-npm start  # or run main.R in an R console
-```
-2. Run Webpack dev server (with hot reloading enabled)
-```
-npm run dev
-```
-3. Open http://localhost:4000
+
+1. Build the React app with auto-reloading on UI file changes (refresh to see changes):
+
+    ```sh
+    npm run watch
+    ```
+
+1. Run the Shiny app with auto-reloading on R file changes:
+
+    ```sh
+    npm start
+    ```
+
+    Or in your R console:
+
+    ```r
+    source("dev.R")
+    ```
+
+1. Open http://localhost:3000
 
 ### Production
-1. Build the React app in production mode
-```
-npm run build
-```
-2. Run the Shiny app
+
+1. Build the React app:
+
+    ```sh
+    npm run build
+    ```
+
+2. Publish the Shiny app with the `dist/` directory included.

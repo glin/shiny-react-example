@@ -3,10 +3,9 @@
   "version": "0.1.0",
   "description": "Example of a Shiny app with a React front-end",
   "scripts": {
-    "start": "Rscript main.R",
+    "start": "Rscript dev.R",
     "build": "vite build",
-    "watch": "vite build --watch",
-    "dev": "vite"
+    "watch": "vite build --watch"
   },
   "license": "MIT",
   "dependencies": {

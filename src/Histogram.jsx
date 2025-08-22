@@ -1,4 +1,4 @@
-import { Component } from 'react'
+import { useState } from 'react'
 import PropTypes from 'prop-types'
 import {
   ResponsiveContainer,
@@ -9,85 +9,82 @@ import {
   XAxis,
   YAxis,
   Label,
-  Tooltip
+  Tooltip,
 } from 'recharts'
 
-class Histogram extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      activeIndex: -1
-    }
-    this.handleMouseOver = this.handleMouseOver.bind(this)
-    this.handleMouseLeave = this.handleMouseLeave.bind(this)
+const Histogram = ({
+  breaks,
+  counts,
+  ticks,
+  xAxisLabel = 'x',
+  yAxisLabel = 'Frequency',
+  fill = '#428bca',
+  activeFill = '#5d9bd1',
+}) => {
+  const [activeIndex, setActiveIndex] = useState(-1)
+
+  const handleMouseOver = (data, index) => {
+    setActiveIndex(index)
   }
 
-  handleMouseOver(data, index) {
-    this.setState({ activeIndex: index })
+  const handleMouseLeave = () => {
+    setActiveIndex(-1)
   }
 
-  handleMouseLeave() {
-    this.setState({ activeIndex: -1 })
-  }
-
-  renderTooltipWithLabel(props) {
+  const renderTooltipWithLabel = (props) => {
     const label = props.payload[0] && props.payload[0].payload.label
     const newProps = { ...props, content: null }
     return <Tooltip {...newProps} label={label} />
   }
 
-  render() {
-    const { breaks, counts, ticks, xAxisLabel, yAxisLabel, fill, activeFill } = this.props
+  const data = counts.map((count, i) => ({
+    x: breaks[i],
+    y: count,
+    label: `(${breaks[i]}, ${breaks[i + 1]}]`,
+  }))
 
-    const data = counts.map((count, i) => ({
-      x: breaks[i],
-      y: count,
-      label: `(${breaks[i]}, ${breaks[i + 1]}]`
-    }))
-
-    return (
-      <ResponsiveContainer width="100%" height={400}>
-        <BarChart data={data} barCategoryGap={1} margin={{ bottom: 30 }}>
-          <CartesianGrid strokeWidth={0.7} />
-          <XAxis
-            dataKey="x"
-            type="number"
-            domain={['auto', 'auto']}
-            ticks={ticks}
-            tickCount={ticks.length}
-          >
-            <Label value={xAxisLabel} offset={-20} position="insideBottom" />
-          </XAxis>
-          <YAxis>
-            <Label
-              value={yAxisLabel}
-              angle={-90}
-              offset={10}
-              position="insideLeft"
-              style={{ textAnchor: 'middle' }}
-            />
-          </YAxis>
-          <Tooltip
-            content={this.renderTooltipWithLabel}
-            offset={40}
-            isAnimationActive={false}
-            labelStyle={{ fontWeight: '700' }}
+  return (
+    <ResponsiveContainer width="100%" height={400}>
+      <BarChart data={data} barCategoryGap={1} margin={{ bottom: 30 }}>
+        <CartesianGrid strokeWidth={0.7} />
+        <XAxis
+          dataKey="x"
+          type="number"
+          domain={['auto', 'auto']}
+          ticks={ticks}
+          tickCount={ticks.length}
+        >
+          <Label value={xAxisLabel} offset={-20} position="insideBottom" />
+        </XAxis>
+        <YAxis>
+          <Label
+            value={yAxisLabel}
+            angle={-90}
+            offset={10}
+            position="insideLeft"
+            style={{ textAnchor: 'middle' }}
           />
-          <Bar
-            dataKey="y"
-            name={yAxisLabel}
-            isAnimationActive={false}
-            onMouseOver={this.handleMouseOver}
-            onMouseLeave={this.handleMouseLeave}
-          >
-            {data.map((entry, index) => (
-              <Cell key={index} fill={this.state.activeIndex === index ? activeFill : fill} />
-            ))}
-          </Bar>
-        </BarChart>
-      </ResponsiveContainer>
-    )
-  }
+        </YAxis>
+        <Tooltip
+          content={renderTooltipWithLabel}
+          offset={40}
+          isAnimationActive={false}
+          labelStyle={{ fontWeight: '700' }}
+        />
+        <Bar
+          dataKey="y"
+          name={yAxisLabel}
+          isAnimationActive={false}
+          onMouseOver={handleMouseOver}
+          onMouseLeave={handleMouseLeave}
+        >
+          {data.map((entry, index) => {
+            return <Cell key={index} fill={activeIndex === index ? activeFill : fill} />
+          })}
+        </Bar>
+      </BarChart>
+    </ResponsiveContainer>
+  )
 }
 
 Histogram.propTypes = {
@@ -97,14 +94,7 @@ Histogram.propTypes = {
   xAxisLabel: PropTypes.string,
   yAxisLabel: PropTypes.string,
   fill: PropTypes.string,
-  activeFill: PropTypes.string
-}
-
-Histogram.defaultProps = {
-  xAxisLabel: 'x',
-  yAxisLabel: 'Frequency',
-  fill: '#428bca',
-  activeFill: '#5d9bd1'
+  activeFill: PropTypes.string,
 }
 
 export default Histogram

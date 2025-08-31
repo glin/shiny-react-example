@@ -4,40 +4,15 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Card from 'react-bootstrap/Card'
 import CardBody from 'react-bootstrap/CardBody'
+import { useShinyInput, useShinyOutput } from 'shiny-react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 import BinsInput from './BinsInput.jsx'
 import Histogram from './Histogram.jsx'
 
 function App() {
-  const [bins, setBins] = useState(30)
-  const [histogramData, setHistogramData] = useState(null)
-
-  const setInputValues = useCallback(() => {
-    if (window.Shiny && window.Shiny.setInputValue) {
-      window.Shiny.setInputValue('bins', bins)
-    }
-  }, [bins])
-
-  useEffect(() => {
-    window.$(document).on('shiny:connected', () => {
-      setInputValues()
-    })
-
-    if (window.Shiny && window.Shiny.addCustomMessageHandler) {
-      window.Shiny.addCustomMessageHandler('histogramData', (histogramData) =>
-        setHistogramData(histogramData)
-      )
-    }
-  }, [setInputValues])
-
-  useEffect(() => {
-    setInputValues()
-  }, [setInputValues])
-
-  const handleBinsChange = (value) => {
-    setBins(value)
-  }
+  const [bins, setBins] = useShinyInput('bins', 30)
+  const [histogramData] = useShinyOutput('histogramData')
 
   return (
     <Container fluid>
@@ -46,7 +21,11 @@ function App() {
         <Col sm="4">
           <Card style={{ backgroundColor: '#f5f5f5' }}>
             <CardBody>
-              <BinsInput value={bins} options={[10, 20, 30, 40, 50]} onChange={handleBinsChange} />
+              <BinsInput
+                value={bins}
+                options={[10, 20, 30, 40, 50]}
+                onChange={(value) => setBins(value)}
+              />
             </CardBody>
           </Card>
         </Col>

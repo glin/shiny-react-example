@@ -14,7 +14,8 @@
     "react": "^19.1.1",
     "react-bootstrap": "^2.10.10",
     "react-dom": "^19.1.1",
-    "recharts": "^3.1.2"
+    "recharts": "^3.1.2",
+    "shiny-react": "github:wch/shiny-react"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.1",

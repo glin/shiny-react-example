@@ -1,5 +1,31 @@
 library(shiny)
 
+#' Reactively render arbitrary JSON object data.
+#'
+#' This is a generic renderer that can be used to render any Jsonifiable data.
+#' It sends the data to the client-side and let the client-side code handle the
+#' rendering.
+renderObject <- function(
+  expr,
+  env = parent.frame(),
+  quoted = FALSE,
+  outputArgs = list(),
+  sep = " "
+) {
+  func <- installExprFunction(expr, "func", env, quoted, label = "renderObject")
+
+  createRenderFunction(
+    func,
+    function(value, session, name, ...) {
+      value
+    },
+    function(...) {
+      stop("Not implemented")
+    },
+    outputArgs
+  )
+}
+
 server <- function(input, output, session) {
   histogramData <- reactive({
     req(input$bins)
@@ -13,8 +39,8 @@ server <- function(input, output, session) {
     )
   })
 
-  observe({
-    session$sendCustomMessage("histogramData", histogramData())
+  output$histogramData <- renderObject({
+    histogramData()
   })
 }
 

@@ -9,13 +9,13 @@
   },
   "license": "MIT",
   "dependencies": {
+    "@posit/shiny-react": "^0.0.8",
     "bootstrap": "^5.3.7",
     "prop-types": "^15.8.1",
     "react": "^19.1.1",
     "react-bootstrap": "^2.10.10",
     "react-dom": "^19.1.1",
-    "recharts": "^3.1.2",
-    "shiny-react": "github:wch/shiny-react"
+    "recharts": "^3.1.2"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.1",

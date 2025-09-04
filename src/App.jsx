@@ -1,10 +1,9 @@
-import { useCallback, useEffect, useState } from 'react'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Card from 'react-bootstrap/Card'
 import CardBody from 'react-bootstrap/CardBody'
-import { useShinyInput, useShinyOutput } from 'shiny-react'
+import { useShinyInput, useShinyOutput } from '@posit/shiny-react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 import BinsInput from './BinsInput.jsx'

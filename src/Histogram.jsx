@@ -32,6 +32,7 @@ const Histogram = ({
   }
 
   const renderTooltipWithLabel = (props) => {
+    console.log(props.payload)
     const label = props.payload[0] && props.payload[0].payload.label
     const newProps = { ...props, content: null }
     return <Tooltip {...newProps} label={label} />
@@ -95,6 +96,7 @@ Histogram.propTypes = {
   yAxisLabel: PropTypes.string,
   fill: PropTypes.string,
   activeFill: PropTypes.string,
+  payload: PropTypes.arrayOf(PropTypes.object),
 }
 
 export default Histogram

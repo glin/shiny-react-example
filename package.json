@@ -2,9 +2,12 @@
   "name": "shiny-react-example",
   "version": "0.1.0",
   "description": "Example of a Shiny app with a React front-end",
+  "type": "module",
   "scripts": {
     "start": "Rscript dev.R",
     "build": "vite build",
+    "format": "prettier --write src",
+    "lint": "eslint src",
     "watch": "vite build --watch"
   },
   "license": "MIT",
@@ -19,7 +22,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.1",
-    "@eslint/js": "^9.33.0",
+    "@eslint/js": "^9.35.0",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
     "@vitejs/plugin-react": "^4.0.0",
@@ -28,6 +31,7 @@
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.20",
     "globals": "^16.3.0",
+    "prettier": "^3.6.2",
     "vite": "^7.1.3"
   }
 }

@@ -32,7 +32,6 @@ const Histogram = ({
   }
 
   const renderTooltipWithLabel = (props) => {
-    console.log(props.payload)
     const label = props.payload[0] && props.payload[0].payload.label
     const newProps = { ...props, content: null }
     return <Tooltip {...newProps} label={label} />

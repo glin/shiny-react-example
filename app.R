@@ -3,16 +3,15 @@ library(shiny)
 #' Reactively render arbitrary JSON object data.
 #'
 #' This is a generic renderer that can be used to render any Jsonifiable data.
-#' It sends the data to the client-side and let the client-side code handle the
-#' rendering.
-renderObject <- function(
+#' The data goes through shiny:::toJSON() before being sent to the client.
+render_json <- function(
   expr,
   env = parent.frame(),
   quoted = FALSE,
   outputArgs = list(),
   sep = " "
 ) {
-  func <- installExprFunction(expr, "func", env, quoted, label = "renderObject")
+  func <- installExprFunction(expr, "func", env, quoted, label = "render_json")
 
   createRenderFunction(
     func,
@@ -26,8 +25,9 @@ renderObject <- function(
   )
 }
 
+
 server <- function(input, output, session) {
-  histogramData <- reactive({
+  histogram_data <- reactive({
     req(input$bins)
     x <- faithful$waiting
     breaks <- round(seq(min(x), max(x), length.out = input$bins + 1), 1)
@@ -39,8 +39,8 @@ server <- function(input, output, session) {
     )
   })
 
-  output$histogramData <- renderObject({
-    histogramData()
+  output$histogram_data <- render_json({
+    histogram_data()
   })
 }
 

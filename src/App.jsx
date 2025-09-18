@@ -11,7 +11,7 @@ import Histogram from './Histogram.jsx'
 
 function App() {
   const [bins, setBins] = useShinyInput('bins', 30)
-  const [histogramData] = useShinyOutput('histogramData')
+  const [histogramData] = useShinyOutput('histogram_data')
 
   return (
     <Container fluid>
